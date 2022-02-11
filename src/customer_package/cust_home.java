@@ -21,11 +21,6 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 
 
-
-/**
- *
- * @author Gokul P V
- */
 public class cust_home extends javax.swing.JFrame {
     
     Map<String, ImageIcon> imageMap;
