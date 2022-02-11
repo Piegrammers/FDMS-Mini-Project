@@ -7,8 +7,14 @@ package customer_package;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -23,7 +29,7 @@ public class cust_home extends javax.swing.JFrame {
     Map<String, ImageIcon> imageMap;
     JList listdata;
     
-    private JList calc(){
+    private JList calc() throws IOException{
         String[] nameList = {"Mario", "Luigi", "Bowser", "Koopa", "Princess","Mario", "Luigi", "Bowser", "Koopa", "Princess","Mario", "Luigi", "Bowser", "Koopa", "Princess","Mario", "Luigi", "Bowser", "Koopa", "Princess"};
         imageMap = createImageMap(nameList);
         listdata = new JList(nameList);
@@ -32,7 +38,7 @@ public class cust_home extends javax.swing.JFrame {
         return listdata;
     }
     
-    public cust_home() {
+    public cust_home() throws IOException {
         calc();
         initComponents();
     }
@@ -159,7 +165,11 @@ public class cust_home extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new cust_home().setVisible(true);
+                try {
+                    new cust_home().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(cust_home.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
