@@ -4,10 +4,7 @@
  */
 package fdms;
 
-/**
- *
- * @author Gokul P V
- */
+
 public class cust_signup extends javax.swing.JFrame {
 
     /**

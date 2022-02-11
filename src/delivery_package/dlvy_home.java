@@ -4,10 +4,7 @@
  */
 package delivery_package;
 
-/**
- *
- * @author Gokul P V
- */
+
 public class dlvy_home extends javax.swing.JFrame {
 
     /**

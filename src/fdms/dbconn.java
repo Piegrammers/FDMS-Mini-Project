@@ -9,10 +9,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-/**
- *
- * @author Gokul P V
- */
+
 public class dbconn {
     public Connection conn=null;
     public Statement stmt=null;

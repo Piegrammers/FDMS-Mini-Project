@@ -108,33 +108,25 @@ public class main_login extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
       String user = userfield.getText().trim();
       String pass = passfield.getText().trim();
-      String query= "SELECT PASSWORD FROM CUSTLOGIN WHERE USERNAME = ' "+user+"'";
+      String query= "SELECT PASSWORD FROM CUSTLOGIN WHERE username='"+user+"'";
       try
       {
-          ResultSet rs = db.stmt.executeQuery(query);
-          while(rs.next())
-          {
-              if (pass.equals(rs.getString(1)))
-              {
-                  //cust_home ch = new cust_home();
-                  System.out.println("Login successfull");
-                    userfield.setText("Wrong password!!");
-                  
-              }
-              else
-              {
-                 // userfield.setText("Wrong password!!");
-              }
-              
-          }
-          
+        ResultSet rs = db.stmt.executeQuery(query);
+        if(rs.next())
+        {
+            if(pass.equals(rs.getString(1)))
+            {
+                //cust_home ch = new cust_home();
+                System.out.println("Login successfull");
+            }
+            else
+                 System.out.println("Login failed");
+        }
       }
       catch (Exception e)
       {
           System.out.println(e.getMessage());
       }
-              
-      
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
