@@ -11,7 +11,6 @@ public class main_login extends javax.swing.JFrame {
     dbconn db = null;
      
     public main_login() {
-        
         db = new dbconn();
         initComponents();
     }
