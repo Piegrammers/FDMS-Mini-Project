@@ -21,27 +21,29 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import java.sql.*; 
 import fdms.dbconn;
+import java.util.ArrayList;
 
 public class cust_home extends javax.swing.JFrame {
     
     Map<String, ImageIcon> imageMap;
     JList listdata;
     dbconn db;
-    String[] nameList;
+    ArrayList<String> nameList;
+    ResultSet RestNames;
     private JList calc(){
-        String[] nameList = {};
+        
         imageMap = createImageMap(nameList);
-        listdata = new JList(nameList);
+        listdata = new JList(nameList.toArray());
         listdata.setCellRenderer(new ResaturentRenderer());
         return listdata;
     }
-    
     public cust_home() {
         db=new dbconn();
+        nameList=new ArrayList<String>();
+        set_list();
         calc();
         initComponents();
-        
-        set_list();
+       
     }
     public void set_list()
     {   
@@ -50,21 +52,26 @@ public class cust_home extends javax.swing.JFrame {
             ResultSet s=db.stmt.executeQuery(query);
             while(s.next())
             {
-                System.out.println(s.getString(1));
+               nameList.add(s.getString(1));
+               System.out.println(s.getString(1));
             }
         } catch (SQLException ex) {
             Logger.getLogger(cust_home.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
     
-    private Map<String, ImageIcon> createImageMap(String[] list) {
+    private Map<String, ImageIcon> createImageMap(ArrayList<String> list) {
         Map<String, ImageIcon> map = new HashMap<>();
         for (String s : list) {
-                map.put(s,new ImageIcon("src/imgs/CB2.jpg"));
+            ImageIcon img=new ImageIcon("src/imgs/"+s+".jpg");
+            Image image = img.getImage();
+            Image newimg = image.getScaledInstance(50, 50,  java.awt.Image.SCALE_SMOOTH);
+            ImageIcon newIcon = new ImageIcon(newimg);
+            map.put(s,newIcon);
 
          
         }  
-        System.out.println(map.toString());
         return map;
     }
     
@@ -75,12 +82,26 @@ public class cust_home extends javax.swing.JFrame {
         public Component getListCellRendererComponent(
                 JList list, Object value, int index,
                 boolean isSelected, boolean cellHasFocus) {
-
-            JLabel label = (JLabel) super.getListCellRendererComponent(
-                    list, value, index, isSelected, cellHasFocus);
-            label.setIcon(imageMap.get((String) value));
-            label.setHorizontalTextPosition(JLabel.RIGHT);
-            label.setFont(font);
+            
+            String query="SELECT NAME FROM RESTAURANT WHERE RESTID = '"+value.toString()+"'";
+            try {
+                RestNames=db.stmt.executeQuery(query);
+            } catch (SQLException ex) {
+                Logger.getLogger(cust_home.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            JLabel label=null;
+            try {
+                if(RestNames.next())
+                {
+                    label = (JLabel) super.getListCellRendererComponent(
+                            list, RestNames.getString(1), index, isSelected, cellHasFocus);
+                    label.setIcon(imageMap.get((String) value));
+                    label.setHorizontalTextPosition(JLabel.RIGHT);
+                    label.setFont(font);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(cust_home.class.getName()).log(Level.SEVERE, null, ex);
+            }
             return label;
         }
 
