@@ -19,31 +19,48 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JList;
-
+import java.sql.*; 
+import fdms.dbconn;
 
 public class cust_home extends javax.swing.JFrame {
     
     Map<String, ImageIcon> imageMap;
     JList listdata;
-    
-    private JList calc() throws IOException{
-        String[] nameList = {"Mario", "Luigi", "Bowser", "Koopa", "Princess","Mario", "Luigi", "Bowser", "Koopa", "Princess","Mario", "Luigi", "Bowser", "Koopa", "Princess","Mario", "Luigi", "Bowser", "Koopa", "Princess"};
+    dbconn db;
+    String[] nameList;
+    private JList calc(){
+        String[] nameList = {};
         imageMap = createImageMap(nameList);
         listdata = new JList(nameList);
         listdata.setCellRenderer(new ResaturentRenderer());
-
         return listdata;
     }
     
-    public cust_home() throws IOException {
+    public cust_home() {
+        db=new dbconn();
         calc();
         initComponents();
+        
+        set_list();
+    }
+    public void set_list()
+    {   
+        String query="SELECT RESTID FROM RESTAURANT";
+        try {
+            ResultSet s=db.stmt.executeQuery(query);
+            while(s.next())
+            {
+                System.out.println(s.getString(1));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(cust_home.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     private Map<String, ImageIcon> createImageMap(String[] list) {
         Map<String, ImageIcon> map = new HashMap<>();
         for (String s : list) {
-                map.put(s,new ImageIcon(getClass().getResource("/imgs/CB2.jpg")));
+                map.put(s,new ImageIcon("src/imgs/CB2.jpg"));
 
          
         }  
@@ -162,11 +179,9 @@ public class cust_home extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                try {
                     new cust_home().setVisible(true);
-                } catch (IOException ex) {
-                    Logger.getLogger(cust_home.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                
+                
             }
         });
     }
