@@ -55,22 +55,22 @@ public class user_type extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
+                .addGap(57, 57, 57)
                 .addComponent(btcustomer)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 189, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 172, Short.MAX_VALUE)
                 .addComponent(btdlvy)
-                .addGap(41, 41, 41))
+                .addGap(46, 46, 46))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(158, 158, 158)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(105, 105, 105)
+                .addGap(79, 79, 79)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btcustomer)
                     .addComponent(btdlvy))
-                .addContainerGap(238, Short.MAX_VALUE))
+                .addContainerGap(264, Short.MAX_VALUE))
         );
 
         pack();
@@ -78,12 +78,14 @@ public class user_type extends javax.swing.JFrame {
 
     private void btcustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btcustomerActionPerformed
         main_login ml=new main_login();
+        dispose();
         ml.fun(1);
     }//GEN-LAST:event_btcustomerActionPerformed
 
     private void btdlvyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btdlvyActionPerformed
-        // TODO add your handling code here:
+
         main_login ml=new main_login();
+        dispose();
         ml.fun(2);
     }//GEN-LAST:event_btdlvyActionPerformed
 
@@ -113,6 +115,7 @@ public class user_type extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(user_type.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

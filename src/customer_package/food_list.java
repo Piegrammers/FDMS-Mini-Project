@@ -1,18 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package customer_package;
 
-/**
- *
- * @author KARTHIK S NAIR
- */
 public class food_list extends javax.swing.JFrame {
 
-    /**
-     * Creates new form food_list
-     */
     public food_list() {
         initComponents();
     }

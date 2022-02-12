@@ -39,6 +39,7 @@ public class dlvy_signup extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(750, 750));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("DELIVERY BOY REGISTRATION ");
@@ -74,6 +75,7 @@ public class dlvy_signup extends javax.swing.JFrame {
 
         label.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         label.setForeground(new java.awt.Color(255, 0, 0));
+        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jButton2.setText("Back");
@@ -129,7 +131,7 @@ public class dlvy_signup extends javax.swing.JFrame {
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtuser, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -151,9 +153,9 @@ public class dlvy_signup extends javax.swing.JFrame {
                     .addComponent(txtmail, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(label, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61))
+                .addGap(17, 17, 17))
         );
 
         pack();
@@ -176,7 +178,7 @@ public class dlvy_signup extends javax.swing.JFrame {
             {
                 query="INSERT INTO DeliveryLogin VALUES('"+user+"','"+pass+"')";
                 db.stmt.execute(query);
-                query="INSERT INTO DeliveryBoy VALUES('"+user+"','"+name+"',"+phone+",'"+email+"')";
+                query="INSERT INTO DeliveryBoy VALUES('"+user+"','"+name+"',"+phone+",'"+email+"','Online')";
                 db.stmt.execute(query);
                 label.setText("Registration successful!");
             }

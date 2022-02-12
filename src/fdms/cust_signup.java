@@ -1,5 +1,9 @@
 package fdms;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class cust_signup extends javax.swing.JFrame {
 
     dbconn db = null;
@@ -29,8 +33,10 @@ public class cust_signup extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtaddr = new javax.swing.JTextArea();
         txtpass = new javax.swing.JPasswordField();
+        btnback = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(750, 750));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("CUSTOMER REGISTRATION");
@@ -39,11 +45,6 @@ public class cust_signup extends javax.swing.JFrame {
         jLabel2.setText("Username");
 
         txtuser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtuser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtuserActionPerformed(evt);
-            }
-        });
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Email");
@@ -75,7 +76,8 @@ public class cust_signup extends javax.swing.JFrame {
 
         label.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         label.setForeground(new java.awt.Color(255, 0, 0));
-        label.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         txtaddr.setColumns(20);
         txtaddr.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -84,9 +86,11 @@ public class cust_signup extends javax.swing.JFrame {
         jScrollPane1.setViewportView(txtaddr);
 
         txtpass.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtpass.addActionListener(new java.awt.event.ActionListener() {
+
+        btnback.setText("Back");
+        btnback.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtpassActionPerformed(evt);
+                btnbackActionPerformed(evt);
             }
         });
 
@@ -113,7 +117,9 @@ public class cust_signup extends javax.swing.JFrame {
                     .addComponent(txtmail, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(29, 29, 29)
+                .addComponent(btnback)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(207, 207, 207))
             .addGroup(layout.createSequentialGroup()
@@ -129,9 +135,14 @@ public class cust_signup extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(btnback)))
+                .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtuser, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
@@ -156,11 +167,11 @@ public class cust_signup extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtmail, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
+                .addGap(20, 20, 20)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(label, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addContainerGap(101, Short.MAX_VALUE))
         );
 
         pack();
@@ -199,13 +210,16 @@ public class cust_signup extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void txtpassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpassActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtpassActionPerformed
-
-    private void txtuserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtuserActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtuserActionPerformed
+    private void btnbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbackActionPerformed
+        main_login ml=new main_login();
+        try {
+                db.end();
+            } catch (SQLException ex) {
+                Logger.getLogger(main_login.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            dispose();
+        ml.fun(1);
+    }//GEN-LAST:event_btnbackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -243,6 +257,7 @@ public class cust_signup extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnback;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
