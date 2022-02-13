@@ -179,12 +179,12 @@ public class cust_signup extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        String user=txtuser.getText();
-        String pass=txtpass.getText();
-        String name=txtname.getText();
-        String addr=txtaddr.getText();
-        String phone=txtphone.getText();
-        String email=txtmail.getText();
+        String user=txtuser.getText().trim();
+        String pass=txtpass.getText().trim();
+        String name=txtname.getText().trim();
+        String addr=txtaddr.getText().trim();
+        String phone=txtphone.getText().trim();
+        String email=txtmail.getText().trim();
         String query;
         if(user.equals("")||pass.equals("")||name.equals("")||pass.equals("")||addr.equals("")||phone.equals("")||email.equals(""))
         {
@@ -211,20 +211,21 @@ public class cust_signup extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbackActionPerformed
-        main_login ml=new main_login();
+        
         try {
                 db.end();
             } catch (SQLException ex) {
                 Logger.getLogger(main_login.class.getName()).log(Level.SEVERE, null, ex);
             }
-            dispose();
-        ml.fun(1);
+        main_login ml=new main_login(1);
+        dispose();
+        ml.setVisible(true);
     }//GEN-LAST:event_btnbackActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public void fun() {
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -249,11 +250,11 @@ public class cust_signup extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new cust_signup().setVisible(true);
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new cust_signup().setVisible(true);
+//            }
+//        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

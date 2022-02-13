@@ -10,7 +10,8 @@ public class main_login extends javax.swing.JFrame {
 
     dbconn db = null;
     int usertype;
-    public main_login() {
+    public main_login(int u) {
+        usertype=u;
         db = new dbconn();
         initComponents();
     }
@@ -154,6 +155,8 @@ public class main_login extends javax.swing.JFrame {
           {
               if(pass.equals(rs.getString(1)))
               {
+                  db.end();
+                  dispose();
                   if(usertype==1)
                   {
                     //cust_home ch = new cust_home();
@@ -163,8 +166,6 @@ public class main_login extends javax.swing.JFrame {
                       dlvy_home dh=new dlvy_home(user);
                       dh.setVisible(true);
                   }
-                  dispose();
-                  db.end();
               }
               else
                   label.setText("Wrong password");
@@ -184,42 +185,42 @@ public class main_login extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(usertype==1)
         {
-            cust_signup cs=new cust_signup();
             try {
                 db.end();
             } catch (SQLException ex) {
                 Logger.getLogger(main_login.class.getName()).log(Level.SEVERE, null, ex);
             }
+            cust_signup cs=new cust_signup();
             dispose();
-            cs.fun();
+            cs.setVisible(true);
         }
         else if(usertype==2)
         {
-            dlvy_signup ds=new dlvy_signup();
             try {
                 db.end();
             } catch (SQLException ex) {
                 Logger.getLogger(main_login.class.getName()).log(Level.SEVERE, null, ex);
             }
+            dlvy_signup ds=new dlvy_signup();
             dispose();
-            ds.fun();
+            ds.setVisible(true);
         }
     }//GEN-LAST:event_lregisterMouseClicked
 
     private void btnbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbackActionPerformed
 
-        user_type ut=new user_type();
-        ut.setVisible(true);
         try {
                 db.end();
             } catch (SQLException ex) {
                 Logger.getLogger(main_login.class.getName()).log(Level.SEVERE, null, ex);
             }
-            dispose();
+        user_type ut=new user_type();
+        ut.setVisible(true);
+        dispose();
 //        ut.fun();
     }//GEN-LAST:event_btnbackActionPerformed
 
-    public void fun(int u) {
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -244,9 +245,9 @@ public class main_login extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        main_login ml=new main_login();
-        ml.setVisible(true);
-        ml.usertype=u;
+//        main_login ml=new main_login();
+//        ml.setVisible(true);
+//        ml.usertype=u;
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //            public void run() {
 //                new main_login().setVisible(true);

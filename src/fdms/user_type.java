@@ -77,16 +77,16 @@ public class user_type extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btcustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btcustomerActionPerformed
-        main_login ml=new main_login();
+        main_login ml=new main_login(1);
         dispose();
-        ml.fun(1);
+        ml.setVisible(true);
     }//GEN-LAST:event_btcustomerActionPerformed
 
     private void btdlvyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btdlvyActionPerformed
 
-        main_login ml=new main_login();
+        main_login ml=new main_login(2);
         dispose();
-        ml.fun(2);
+        ml.setVisible(true);
     }//GEN-LAST:event_btdlvyActionPerformed
 
     /**
