@@ -142,7 +142,6 @@ public class main_login extends javax.swing.JFrame {
         String user = userfield.getText().trim();
         String pass = passfield.getText().trim();
         String table="";
-        System.out.println(usertype);
         if(usertype==1)
             table="CustLogin";
         else if(usertype==2)

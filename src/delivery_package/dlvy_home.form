@@ -94,11 +94,11 @@
               <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
               <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="ctorder" min="-2" pref="31" max="-2" attributes="0"/>
-                  <Component id="txtorderid" min="-2" pref="38" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="ctorder" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                  <Component id="txtorderid" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="txtdelivery" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                   <Component id="tcname" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
@@ -116,7 +116,7 @@
               <Component id="traddr" min="-2" pref="35" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="trphone" min="-2" pref="35" max="-2" attributes="0"/>
-              <EmptySpace pref="27" max="32767" attributes="0"/>
+              <EmptySpace pref="24" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="txtstatus" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                   <Component id="btnpickup" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
@@ -273,7 +273,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="1"/>
         </Property>
-        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="horizontalAlignment" type="int" value="2"/>
       </Properties>
     </Component>
   </SubComponents>
