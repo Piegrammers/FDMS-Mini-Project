@@ -21,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import java.sql.*; 
 import fdms.dbconn;
+import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -33,6 +34,7 @@ public class cust_home extends javax.swing.JFrame {
     dbconn db;
     ArrayList<String> nameList;
     ResultSet RestNames;
+    
     private JList calc(){
         
         imageMap = createImageMap(nameList);
@@ -43,16 +45,23 @@ public class cust_home extends javax.swing.JFrame {
     public cust_home() {
         db=new dbconn();
         nameList=new ArrayList<String>();
+        
         set_list();
         calc();
         initComponents();
-        
-        
+        RName.setVisible(false);
+        RPhone.setVisible(false);
+        RDesc.setVisible(false);
+        RRating.setVisible(false);
+        RType.setVisible(false);
+        OrderButton.setVisible(false);
         listdata.addMouseListener(new MouseAdapter() {
         public void mouseClicked(MouseEvent evt) {
         JList list = (JList)evt.getSource();
         set_details((String)list.getSelectedValue());
     }});
+        
+ 
     }
     
     public void set_details(String st)
@@ -65,9 +74,33 @@ public class cust_home extends javax.swing.JFrame {
                RName.setText(s.getString(2));
                RPhone.setText(s.getString(3));
                RDesc.setText(s.getString(4));
+               RRating.setText(s.getString(6));
+               RType.setText(s.getString(5));
+               
+       
+               
+               if(RType.getText().equals("Veg"))
+                   RType.setForeground(new Color(0, 46, 1));
+               else
+                   RType.setForeground(new Color(105, 24, 0));
+               
+               if(Float.parseFloat(s.getString(6))<4)
+                   RRating.setForeground(Color.red);
+               else if(Float.parseFloat(s.getString(6))<8)
+                   RRating.setForeground(new Color(105, 24, 0));
+               else
+                   RRating.setForeground(new Color(0, 46, 1));
+                   
+                   
                
                
-               
+               RName.setVisible(true);
+               RPhone.setVisible(true);
+               RDesc.setVisible(true);
+               RRating.setVisible(true);
+               RType.setVisible(true);
+               OrderButton.setVisible(true);
+
                 ImageIcon img=new ImageIcon("src/imgs/"+s.getString(1)+".jpg");
                 Image image = img.getImage();
                 Image newimg = image.getScaledInstance(189, 189,  java.awt.Image.SCALE_SMOOTH);
@@ -88,7 +121,7 @@ public class cust_home extends javax.swing.JFrame {
             {
                nameList.add(s.getString(1));
          
-               System.out.println(s.getString(1));
+               //System.out.println(s.getString(1));
             }
         } catch (SQLException ex) {
             Logger.getLogger(cust_home.class.getName()).log(Level.SEVERE, null, ex);
@@ -101,7 +134,7 @@ public class cust_home extends javax.swing.JFrame {
         for (String s : list) {
             ImageIcon img=new ImageIcon("src/imgs/"+s+".jpg");
             Image image = img.getImage();
-            Image newimg = image.getScaledInstance(50, 50,  java.awt.Image.SCALE_SMOOTH);
+            Image newimg = image.getScaledInstance(70, 70,  java.awt.Image.SCALE_SMOOTH);
             ImageIcon newIcon = new ImageIcon(newimg);
             map.put(s,newIcon);
 
@@ -112,7 +145,7 @@ public class cust_home extends javax.swing.JFrame {
     
     public class ResaturentRenderer extends DefaultListCellRenderer
     {
-        Font font = new Font("helvitica", Font.PLAIN, 16);
+        Font font = new Font("helvitica", Font.BOLD, 16);
         @Override
         public Component getListCellRendererComponent(
                 JList list, Object value, int index,
@@ -152,14 +185,14 @@ public class cust_home extends javax.swing.JFrame {
 
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jScrollPane1 = new javax.swing.JScrollPane(listdata);
+        custPane = new javax.swing.JScrollPane(listdata);
         jPanel1 = new javax.swing.JPanel();
         Rlogo = new javax.swing.JLabel();
         RName = new javax.swing.JLabel();
         RDesc = new javax.swing.JLabel();
         RType = new javax.swing.JLabel();
         RRating = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        OrderButton = new javax.swing.JButton();
         RPhone = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -183,11 +216,12 @@ public class cust_home extends javax.swing.JFrame {
         setResizable(false);
         setSize(new java.awt.Dimension(750, 750));
 
-        jScrollPane1.setViewportBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(100, 750));
+        custPane.setViewportBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        custPane.setPreferredSize(new java.awt.Dimension(100, 750));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jPanel1.setMinimumSize(new java.awt.Dimension(294, 441));
 
         Rlogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
@@ -195,22 +229,32 @@ public class cust_home extends javax.swing.JFrame {
         RName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         RName.setText("DOMINOS");
         RName.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        RName.setName(""); // NOI18N
 
+        RDesc.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        RDesc.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         RDesc.setText("jLabel2");
         RDesc.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        RType.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         RType.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         RType.setText("RType");
 
+        RRating.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        RRating.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         RRating.setText("jLabel4");
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        OrderButton.setFont(new java.awt.Font("Calisto MT", 1, 12)); // NOI18N
+        OrderButton.setText("Order Food");
+        OrderButton.setToolTipText("");
+        OrderButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                OrderButtonActionPerformed(evt);
             }
         });
 
+        RPhone.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        RPhone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         RPhone.setText("jLabel1");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -218,24 +262,19 @@ public class cust_home extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(RType, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(7, 7, 7)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(RPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(RRating, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap())
-                    .addComponent(RDesc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(RName, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(22, Short.MAX_VALUE))))
+                .addComponent(RType, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(OrderButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(RRating, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(RName, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(28, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(RDesc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,8 +282,8 @@ public class cust_home extends javax.swing.JFrame {
                         .addComponent(Rlogo, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(45, 45, 45))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(98, 98, 98))))
+                        .addComponent(RPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(84, 84, 84))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -254,15 +293,18 @@ public class cust_home extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addComponent(RName, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(RDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(RPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(RRating, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(RType, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(RDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(RType, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(RRating, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(RPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39)
+                        .addComponent(OrderButton)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -298,7 +340,7 @@ public class cust_home extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(custPane, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -308,7 +350,7 @@ public class cust_home extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 708, Short.MAX_VALUE)
+                    .addComponent(custPane, javax.swing.GroupLayout.DEFAULT_SIZE, 708, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -316,9 +358,9 @@ public class cust_home extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void OrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OrderButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_OrderButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -358,19 +400,19 @@ public class cust_home extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton OrderButton;
     private javax.swing.JLabel RDesc;
     private javax.swing.JLabel RName;
     private javax.swing.JLabel RPhone;
     private javax.swing.JLabel RRating;
     private javax.swing.JLabel RType;
     public javax.swing.JLabel Rlogo;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JScrollPane custPane;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
