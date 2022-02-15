@@ -19,6 +19,9 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.NO_OPTION;
+import static javax.swing.JOptionPane.YES_OPTION;
 
 /**
  *
@@ -31,8 +34,10 @@ public class cart extends javax.swing.JFrame {
     dbconn db;
     ArrayList<String> foodIdList;
     ResultSet foodNames;
-    String restId,custId;
+    String restId,custId,deliveryId;
     ArrayList<order_item> items;
+    long orderId;
+    float OTotal;
     public cart(ArrayList<order_item> items,int total,String restid,String custid) {
         setVisible(true);
         db=new dbconn();
@@ -43,7 +48,7 @@ public class cart extends javax.swing.JFrame {
         set_list(items);
         calc();
         initComponents();
-        
+        OTotal=total;
         JTotal.setText("₹"+total);
         String query="SELECT NAME FROM RESTAURANT WHERE RESTID = '"+restId+"'";
         try {
@@ -149,8 +154,77 @@ public class cart extends javax.swing.JFrame {
     
     public void place_order()
     {
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog (this, "Confirm this order?","Confirmation",dialogButton);
+        if(dialogResult == JOptionPane.NO_OPTION){
+          return;
+        }
+        String query="SELECT * FROM ORDERS ORDER BY ORDERID DESC";
+        ResultSet rs,ds,cs;
+        try {
+            rs = db.stmt.executeQuery(query);
+            if(rs.next())
+            {
+                orderId=Long.parseLong(rs.getString(1));
+                orderId+=1;
+            }
+            else
+                orderId=889100;
+        
+        } catch (SQLException ex) {
+            Logger.getLogger(cart.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("read orders");
+        query="SELECT * FROM DELIVERYBOY WHERE STATUS='ONLINE' AND ROWNUM=1";
+        try {
+            ds=db.stmt.executeQuery(query);
+            if(ds.next())
+                deliveryId=ds.getString(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(cart.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("Delivery id :"+deliveryId);
+        try {
+            cs=db.stmt.executeQuery("Select * from Customer where USERNAME='"+custId+"'");
+        } catch (SQLException ex) {
+            Logger.getLogger(cart.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            db.stmt.executeQuery("INSERT INTO ORDERS VALUES('"+orderId+"','"+custId+"','"+deliveryId+"','"+restId+"',SYSDATE,"+OTotal+",'READY')");
+            
+            
+            for(order_item o:items)
+            {
+ 
+            
+                try {
+                ResultSet s=db.stmt.executeQuery("SELECT PRICE FROM FOOD WHERE FOODID='"+o.foodid+"'");
+                if(s.next())
+                {
+                   float price=(Integer.parseInt(s.getString(1))*o.quantity);
+                   db.stmt.executeQuery("INSERT INTO ORDERDETAILS VALUES('"+orderId+"','"+o.foodid+"',"+o.quantity+","+price+")");
 
-    }
+                }
+                } catch (SQLException ex) {
+                    Logger.getLogger(food_list.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(cart.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+          
+        JOptionPane.showMessageDialog(this, "Order confirmed!! Your order will be delivered soon.");
+        cust_home c=new cust_home(custId);
+        c.setVisible(true);
+        dispose();
+        
+        }
+        
+        
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -175,7 +249,6 @@ public class cart extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(750, 750));
-        setPreferredSize(new java.awt.Dimension(750, 750));
         setResizable(false);
 
         jLabel1.setIcon(new javax.swing.ImageIcon("src/imgs/xtras/back.png"));
