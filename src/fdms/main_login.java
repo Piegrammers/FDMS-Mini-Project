@@ -159,7 +159,9 @@ public class main_login extends javax.swing.JFrame {
                   dispose();
                   if(usertype==1)
                   {
-                    //cust_home ch = new cust_home();
+                    cust_home ch = new cust_home(user);
+                    ch.setVisible(true);
+                    dispose();
                   }
                   else if(usertype==2)
                   {
