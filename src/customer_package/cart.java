@@ -149,7 +149,7 @@ public class cart extends javax.swing.JFrame {
     
     public void place_order()
     {
-        String query=SELECT * FROM 
+
     }
 
     /**
