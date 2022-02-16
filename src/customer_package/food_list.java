@@ -543,6 +543,7 @@ public class food_list extends javax.swing.JFrame {
         // TODO add your handling code here:
         cart c=new cart(items,total,selectedRest,custId);
         
+        
         dispose();
     }//GEN-LAST:event_go_to_cart
 
