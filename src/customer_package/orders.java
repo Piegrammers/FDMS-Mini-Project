@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package customer_package;
+import delivery_package.dlvy_bill;
 import fdms.dbconn;
 import java.awt.Color;
 import java.awt.Image;
@@ -263,6 +264,12 @@ public class orders extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setText("Previous Orders:");
 
+        jScrollPane2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jScrollPane2MouseClicked(evt);
+            }
+        });
+
         OTable.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         OTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -290,6 +297,11 @@ public class orders extends javax.swing.JFrame {
         OTable.setRowHeight(40
         );
         OTable.setShowHorizontalLines(true);
+        OTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                OTableMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(OTable);
         if (OTable.getColumnModel().getColumnCount() > 0) {
             OTable.getColumnModel().getColumn(0).setResizable(false);
@@ -398,6 +410,25 @@ public class orders extends javax.swing.JFrame {
         }
         dispose();
     }//GEN-LAST:event_jMenu1MouseClicked
+
+    private void jScrollPane2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane2MouseClicked
+
+    }//GEN-LAST:event_jScrollPane2MouseClicked
+
+    private void OTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OTableMouseClicked
+        String s=OTable.getValueAt(OTable.getSelectedRow(),0).toString();
+        dlvy_bill dv=new dlvy_bill(s,custId,1);
+        dv.setVisible(true);
+        
+        try {
+            db.end();
+        } catch (SQLException ex) {
+            Logger.getLogger(orders.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        dispose();
+        
+    }//GEN-LAST:event_OTableMouseClicked
 
     /**
      * @param args the command line arguments
