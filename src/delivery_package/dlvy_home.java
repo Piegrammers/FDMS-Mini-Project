@@ -411,7 +411,7 @@ public class dlvy_home extends javax.swing.JFrame {
         
         try
             {
-                db.stmt.execute("UPDATE ORDERS SET status='Picked up' WHERE orderid='"+oid+"'");
+                db.stmt.execute("UPDATE ORDERS SET status='Picked Up' WHERE orderid='"+oid+"'");
                 btnpickup.setVisible(false);
                 btndeliver.setVisible(true);
                 txtordstatus.setText("Order picked up");

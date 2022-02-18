@@ -201,6 +201,7 @@ public class cust_home extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -321,6 +322,8 @@ public class cust_home extends javax.swing.JFrame {
         jMenu2.setFocusable(false);
         jMenu2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jMenu2.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jMenu2.setMaximumSize(new java.awt.Dimension(520, 32767));
+        jMenu2.setMinimumSize(new java.awt.Dimension(520, 6));
         jMenu2.setPreferredSize(new java.awt.Dimension(625, 6));
         jMenu2.setRequestFocusEnabled(false);
         jMenu2.setRolloverEnabled(false);
@@ -332,6 +335,27 @@ public class cust_home extends javax.swing.JFrame {
         jMenu3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jMenu3.setPreferredSize(new java.awt.Dimension(65, 22));
         jMenuBar1.add(jMenu3);
+
+        jMenu4.setText("Orders");
+        jMenu4.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                go_to_order(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        jMenu4.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                jMenu4MenuSelected(evt);
+            }
+        });
+        jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
 
@@ -365,6 +389,16 @@ public class cust_home extends javax.swing.JFrame {
        dispose();
     }//GEN-LAST:event_OrderButtonActionPerformed
 
+    private void go_to_order(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_go_to_order
+
+    }//GEN-LAST:event_go_to_order
+
+    private void jMenu4MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu4MenuSelected
+        orders o=new orders(custId);
+        o.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jMenu4MenuSelected
+
     /**
      * @param args the command line arguments
      */
@@ -382,6 +416,7 @@ public class cust_home extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane3;

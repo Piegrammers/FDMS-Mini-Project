@@ -175,7 +175,7 @@ public class cart extends javax.swing.JFrame {
             Logger.getLogger(cart.class.getName()).log(Level.SEVERE, null, ex);
         }
         System.out.println("read orders");
-        query="SELECT * FROM DELIVERYBOY WHERE STATUS='ONLINE' AND ROWNUM=1";
+        query="SELECT * FROM DELIVERYBOY WHERE STATUS='Online' AND ROWNUM=1";
         try {
             ds=db.stmt.executeQuery(query);
             if(ds.next())
@@ -191,7 +191,7 @@ public class cart extends javax.swing.JFrame {
         }
         
         try {
-            db.stmt.executeQuery("INSERT INTO ORDERS VALUES('"+orderId+"','"+custId+"','"+deliveryId+"','"+restId+"',SYSDATE,"+OTotal+",'READY')");
+            db.stmt.executeQuery("INSERT INTO ORDERS VALUES('"+orderId+"','"+custId+"','"+deliveryId+"','"+restId+"',SYSDATE,"+OTotal+",'Ready')");
             
             
             for(order_item o:items)
@@ -217,8 +217,8 @@ public class cart extends javax.swing.JFrame {
 
           
         JOptionPane.showMessageDialog(this, "Order confirmed!! Your order will be delivered soon.");
-        cust_home c=new cust_home(custId);
-        c.setVisible(true);
+        orders o=new orders(custId);
+        o.setVisible(true);
         dispose();
         
         }
