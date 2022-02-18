@@ -80,14 +80,14 @@ public class dlvy_home extends javax.swing.JFrame {
                 if(rs1.next())
                 {
                     tcname.setText(rs1.getString(1));
-                    tcaddr.setText(rs1.getString(2));
+                    tcaddr.setText("<html><p style=\"text-align:left;\">"+rs1.getString(2)+"</p></html>");
                     tcphone.setText(rs1.getString(3));
                 }
                 rs1=db.stmt.executeQuery("SELECT name,address,phone FROM Restaurant WHERE restid='"+rid+"'");
                 if(rs1.next())
                 {
                     trname.setText(rs1.getString(1));
-                    traddr.setText(rs1.getString(2));
+                    traddr.setText("<html><p style=\"text-align:left;\">"+rs1.getString(2)+"</p></html>");
                     trphone.setText(rs1.getString(3));
                 }
                 btnbill.setVisible(true);
