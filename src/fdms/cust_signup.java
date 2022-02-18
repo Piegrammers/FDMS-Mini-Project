@@ -1,8 +1,10 @@
 package fdms;
 
+import customer_package.cust_home;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class cust_signup extends javax.swing.JFrame {
 
@@ -36,7 +38,7 @@ public class cust_signup extends javax.swing.JFrame {
         btnback = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(750, 750));
+        setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("CUSTOMER REGISTRATION");
@@ -178,27 +180,33 @@ public class cust_signup extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+
         String user=txtuser.getText().trim();
         String pass=txtpass.getText().trim();
         String name=txtname.getText().trim();
         String addr=txtaddr.getText().trim();
         String phone=txtphone.getText().trim();
         String email=txtmail.getText().trim();
+        label.setText("");
         String query;
         if(user.equals("")||pass.equals("")||name.equals("")||pass.equals("")||addr.equals("")||phone.equals("")||email.equals(""))
         {
-            label.setText("Values can't be null!!");
+            label.setText("All fields are mandatory!!");
         }
         else
         {
             try
             {
-                query="INSERT INTO CustLogin VALUES('"+user+"','"+pass+"')";
+                query="INSERT INTO CustLogin VALUES('"+user+"','"+pass.hashCode()+"')";
                 db.stmt.execute(query);
                 query="INSERT INTO Customer VALUES('"+user+"','"+name+"','"+addr+"',"+phone+",'"+email+"')";
                 db.stmt.execute(query);
-                label.setText("Registration successful!");
+                JOptionPane.showMessageDialog(this, "Account created successfully!");
+                
+                cust_home c=new cust_home(user);
+                c.setVisible(true);
+                db.end();
+                dispose();
             }
             catch(Exception e)
             {
@@ -222,40 +230,6 @@ public class cust_signup extends javax.swing.JFrame {
         ml.setVisible(true);
     }//GEN-LAST:event_btnbackActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(cust_signup.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(cust_signup.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(cust_signup.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(cust_signup.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new cust_signup().setVisible(true);
-//            }
-//        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnback;

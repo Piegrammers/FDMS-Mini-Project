@@ -491,16 +491,26 @@ public class food_list extends javax.swing.JFrame {
         jMenuBar1.setMaximumSize(new java.awt.Dimension(750, 23));
         jMenuBar1.setPreferredSize(new java.awt.Dimension(750, 23));
 
-        jMenu1.setText("File");
+        jMenu1.setText("Home");
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu1);
 
         jMenu2.setEnabled(false);
         jMenu2.setFocusable(false);
         jMenu2.setMinimumSize(new java.awt.Dimension(678, 6));
-        jMenu2.setPreferredSize(new java.awt.Dimension(600, 6));
+        jMenu2.setPreferredSize(new java.awt.Dimension(650, 6));
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Cart");
+        jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu3MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
@@ -541,10 +551,12 @@ public class food_list extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void go_to_cart(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_go_to_cart
-        // TODO add your handling code here:
+        try {
+            db.end();
+        } catch (SQLException ex) {
+            Logger.getLogger(food_list.class.getName()).log(Level.SEVERE, null, ex);
+        }
         cart c=new cart(items,total,selectedRest,custId);
-        
-        
         dispose();
     }//GEN-LAST:event_go_to_cart
 
@@ -562,6 +574,28 @@ public class food_list extends javax.swing.JFrame {
     private void quantityMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_quantityMousePressed
         // TODO add your handling code here:
     }//GEN-LAST:event_quantityMousePressed
+
+    private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
+        try {
+            db.end();
+        } catch (SQLException ex) {
+            Logger.getLogger(food_list.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        cart c=new cart(items,total,selectedRest,custId);
+        dispose();
+
+    }//GEN-LAST:event_jMenu3MouseClicked
+
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+        try {
+            db.end();
+        } catch (SQLException ex) {
+            Logger.getLogger(food_list.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        cust_home ch=new cust_home(custId);
+        ch.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jMenu1MouseClicked
 
     /**
      * @param args the command line arguments

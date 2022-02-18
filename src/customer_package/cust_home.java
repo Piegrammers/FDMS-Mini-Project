@@ -7,22 +7,18 @@ package customer_package;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import java.sql.*; 
 import fdms.dbconn;
+import fdms.main_login;
 import java.awt.Color;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -124,7 +120,6 @@ public class cust_home extends javax.swing.JFrame {
             {
                nameList.add(s.getString(1));
          
-               //System.out.println(s.getString(1));
             }
         } catch (SQLException ex) {
             Logger.getLogger(cust_home.class.getName()).log(Level.SEVERE, null, ex);
@@ -312,10 +307,15 @@ public class cust_home extends javax.swing.JFrame {
 
         jMenuBar1.setPreferredSize(new java.awt.Dimension(723, 30));
 
-        jMenu1.setText("Home");
+        jMenu1.setText("Back");
         jMenu1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jMenu1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jMenu1.setPreferredSize(new java.awt.Dimension(60, 22));
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu1);
 
         jMenu2.setEnabled(false);
@@ -399,10 +399,16 @@ public class cust_home extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jMenu4MenuSelected
 
-    /**
-     * @param args the command line arguments
-     */
-
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+        try {
+            db.end();
+        } catch (SQLException ex) {
+            Logger.getLogger(cust_home.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        main_login ml=new main_login(1);
+        ml.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jMenu1MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton OrderButton;

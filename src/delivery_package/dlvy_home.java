@@ -33,7 +33,7 @@ public class dlvy_home extends javax.swing.JFrame {
                 tdname.setText(rs.getString(1).trim());
                 btnavail.setVisible(true);
                 
-                ImageIcon img=new ImageIcon("src/imgs/dlvy_icon.png");
+                ImageIcon img=new ImageIcon("src\\imgs\\xtras\\dlvy_icon.png");
                 Image image = img.getImage();
                 Image newimg = image.getScaledInstance(135, 135,  java.awt.Image.SCALE_SMOOTH);
                 ImageIcon newIcon = new ImageIcon(newimg);
@@ -443,7 +443,7 @@ public class dlvy_home extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(main_login.class.getName()).log(Level.SEVERE, null, ex);
             }
-        dlvy_bill bill=new dlvy_bill(oid,user);
+        dlvy_bill bill=new dlvy_bill(oid,user,2);
         dispose();
         bill.setVisible(true);
     }//GEN-LAST:event_btnbillActionPerformed

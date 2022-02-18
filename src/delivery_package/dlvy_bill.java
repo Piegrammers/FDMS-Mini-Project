@@ -1,5 +1,6 @@
 package delivery_package;
 
+import customer_package.orders;
 import fdms.dbconn;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -13,13 +14,15 @@ import javax.swing.table.DefaultTableModel;
 public class dlvy_bill extends javax.swing.JFrame {
 
     String oid,user,rid;
+    int source;
     dbconn db;
-    public dlvy_bill(String o,String u) {
+    public dlvy_bill(String o,String u,int s) {
         initComponents();
         
         db=new dbconn();
         oid=o;
         user=u;
+        source=s;
         setDetails();
     }
 
@@ -116,7 +119,7 @@ public class dlvy_bill extends javax.swing.JFrame {
         jLabel1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(750, 750));
+        setResizable(false);
 
         lrname.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         lrname.setText("jLabel3");
@@ -164,6 +167,7 @@ public class dlvy_bill extends javax.swing.JFrame {
         });
         table.setEnabled(false);
         table.setOpaque(false);
+        table.setRowHeight(40);
         jScrollPane2.setViewportView(table);
 
         btnback.setText("Back");
@@ -252,43 +256,18 @@ public class dlvy_bill extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
             }
-        dlvy_home dh=new dlvy_home(user);
-        dispose();
-        dh.setVisible(true);
-    }//GEN-LAST:event_btnbackActionPerformed
-
-
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(dlvy_bill.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(dlvy_bill.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(dlvy_bill.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(dlvy_bill.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        if(source==1)
+        {
+            orders o=new orders(user);
+            o.setVisible(true);
         }
-        //</editor-fold>
-
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new dlvy_bill().setVisible(true);
-//            }
-//        });
-    }
+        else if(source==2)
+        {
+            dlvy_home dh=new dlvy_home(user);
+            dh.setVisible(true);
+        }
+        dispose();
+    }//GEN-LAST:event_btnbackActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnback;

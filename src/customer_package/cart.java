@@ -20,13 +20,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
-import static javax.swing.JOptionPane.NO_OPTION;
-import static javax.swing.JOptionPane.YES_OPTION;
 
-/**
- *
- * @author manuk
- */
+
 public class cart extends javax.swing.JFrame {
 
     Map<String, ImageIcon> imageMap;
@@ -159,69 +154,70 @@ public class cart extends javax.swing.JFrame {
         if(dialogResult == JOptionPane.NO_OPTION){
           return;
         }
-        String query="SELECT * FROM ORDERS ORDER BY ORDERID DESC";
-        ResultSet rs,ds,cs;
-        try {
-            rs = db.stmt.executeQuery(query);
-            if(rs.next())
-            {
-                orderId=Long.parseLong(rs.getString(1));
-                orderId+=1;
-            }
-            else
-                orderId=889100;
-        
-        } catch (SQLException ex) {
-            Logger.getLogger(cart.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        System.out.println("read orders");
-        query="SELECT * FROM DELIVERYBOY WHERE STATUS='Online' AND ROWNUM=1";
-        try {
-            ds=db.stmt.executeQuery(query);
-            if(ds.next())
-                deliveryId=ds.getString(1);
-        } catch (SQLException ex) {
-            Logger.getLogger(cart.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        System.out.println("Delivery id :"+deliveryId);
-        try {
-            cs=db.stmt.executeQuery("Select * from Customer where USERNAME='"+custId+"'");
-        } catch (SQLException ex) {
-            Logger.getLogger(cart.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        try {
-            db.stmt.executeQuery("INSERT INTO ORDERS VALUES('"+orderId+"','"+custId+"','"+deliveryId+"','"+restId+"',SYSDATE,"+OTotal+",'Ready')");
-            
-            
-            for(order_item o:items)
-            {
- 
-            
-                try {
-                ResultSet s=db.stmt.executeQuery("SELECT PRICE FROM FOOD WHERE FOODID='"+o.foodid+"'");
-                if(s.next())
+        if(dialogResult == JOptionPane.YES_OPTION){
+            String query="SELECT * FROM ORDERS ORDER BY ORDERID DESC";
+            ResultSet rs,ds,cs;
+            try {
+                rs = db.stmt.executeQuery(query);
+                if(rs.next())
                 {
-                   float price=(Integer.parseInt(s.getString(1))*o.quantity);
-                   db.stmt.executeQuery("INSERT INTO ORDERDETAILS VALUES('"+orderId+"','"+o.foodid+"',"+o.quantity+","+price+")");
+                    orderId=Long.parseLong(rs.getString(1));
+                    orderId+=1;
+                }
+                else
+                    orderId=889100;
 
-                }
-                } catch (SQLException ex) {
-                    Logger.getLogger(food_list.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                
+            } catch (SQLException ex) {
+                Logger.getLogger(cart.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(cart.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            System.out.println("read orders");
+            query="SELECT * FROM DELIVERYBOY WHERE STATUS='Online' AND ROWNUM=1";
+            try {
+                ds=db.stmt.executeQuery(query);
+                if(ds.next())
+                    deliveryId=ds.getString(1);
+            } catch (SQLException ex) {
+                Logger.getLogger(cart.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println("Delivery id :"+deliveryId);
+            try {
+                cs=db.stmt.executeQuery("Select * from Customer where USERNAME='"+custId+"'");
+            } catch (SQLException ex) {
+                Logger.getLogger(cart.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
-          
-        JOptionPane.showMessageDialog(this, "Order confirmed!! Your order will be delivered soon.");
-        orders o=new orders(custId);
-        o.setVisible(true);
-        dispose();
-        
+            try {
+                db.stmt.executeQuery("INSERT INTO ORDERS VALUES('"+orderId+"','"+custId+"','"+deliveryId+"','"+restId+"',SYSDATE,"+OTotal+",'Ready')");
+
+
+                for(order_item o:items)
+                {
+
+
+                    try {
+                    ResultSet s=db.stmt.executeQuery("SELECT PRICE FROM FOOD WHERE FOODID='"+o.foodid+"'");
+                    if(s.next())
+                    {
+                       float price=(Integer.parseInt(s.getString(1))*o.quantity);
+                       db.stmt.executeQuery("INSERT INTO ORDERDETAILS VALUES('"+orderId+"','"+o.foodid+"',"+o.quantity+","+price+")");
+
+                    }
+                    } catch (SQLException ex) {
+                        Logger.getLogger(food_list.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(cart.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+
+            JOptionPane.showMessageDialog(this, "Order confirmed!! Your order will be delivered soon.");
+            orders o=new orders(custId);
+            o.setVisible(true);
+            dispose();
         }
+    }
         
         
 
@@ -237,7 +233,6 @@ public class cart extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane(listdata);
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         RName = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel3 = new javax.swing.JLabel();
@@ -246,14 +241,11 @@ public class cart extends javax.swing.JFrame {
         JTotal = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(750, 750));
         setResizable(false);
-
-        jLabel1.setIcon(new javax.swing.ImageIcon("src/imgs/xtras/back.png"));
-        jLabel1.setMaximumSize(new java.awt.Dimension(20, 20));
-        jLabel1.setMinimumSize(new java.awt.Dimension(20, 20));
 
         RName.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         RName.setText("Rest Name");
@@ -264,8 +256,6 @@ public class cart extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(RName, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -273,9 +263,8 @@ public class cart extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(RName)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(RName)
+                .addGap(4, 4, 4))
         );
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -306,12 +295,40 @@ public class cart extends javax.swing.JFrame {
         jLabel6.setText("Place Order");
         jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, -1, -1));
 
+        jPanel4.setBackground(new java.awt.Color(255, 51, 51));
+        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel4MouseClicked(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Cancel Order");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(64, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(49, 49, 49))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(548, Short.MAX_VALUE)
+                .addContainerGap(344, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -319,8 +336,10 @@ public class cart extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -353,7 +372,7 @@ public class cart extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 565, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 548, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -370,6 +389,17 @@ public class cart extends javax.swing.JFrame {
         place_order();
     }//GEN-LAST:event_jPanel3MouseClicked
 
+    private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
+        try {
+            db.end();
+        } catch (SQLException ex) {
+            Logger.getLogger(cart.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        food_list fl=new food_list(restId,custId);
+        fl.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jPanel4MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -378,13 +408,14 @@ public class cart extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel JTotal;
     private javax.swing.JLabel RName;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
