@@ -22,6 +22,8 @@ public class orders extends javax.swing.JFrame {
     dbconn db;
     String custId;
     ArrayList<String> orders_list;
+    
+    
     public orders(String custid) {
         custId=custid;
         db=new dbconn();
@@ -93,13 +95,13 @@ public class orders extends javax.swing.JFrame {
             while(rs.next())
             {   
                 
-                Statement st2=db.conn.createStatement();
-                ResultSet r2=st2.executeQuery("SELECT NAME FROM RESTAURANT WHERE RESTID='"+rs.getString(4)+"'");
-                if(r2.next())
-                {
-                    String Tdata[]={rs.getString(1),r2.getString(1),rs.getString(3),rs.getString(7)};
-                    
-                    tblModel.addRow(Tdata);
+                    Statement st2=db.conn.createStatement();
+                    ResultSet r2=st2.executeQuery("SELECT NAME FROM RESTAURANT WHERE RESTID='"+rs.getString(4)+"'");
+                    if(r2.next())
+                    {
+                        String Tdata[]={rs.getString(1),r2.getString(1),'₹'+rs.getString(6),rs.getString(7)};
+
+                        tblModel.addRow(Tdata);
                   
                 }
                 orders_list.add(rs.getString(1));
