@@ -92,7 +92,7 @@ public class food_list extends javax.swing.JFrame {
     
     public void set_list()
     {   
-        String query="SELECT FOODID FROM FOOD";
+        String query="SELECT FOODID FROM MENU WHERE RESTID='"+selectedRest+"'";
         try {
             ResultSet s=db.stmt.executeQuery(query);
             while(s.next())
@@ -324,8 +324,6 @@ public class food_list extends javax.swing.JFrame {
         jMenuItem3.setText("jMenuItem3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(750, 750));
-        setPreferredSize(new java.awt.Dimension(750, 750));
         setResizable(false);
 
         foodPane.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -415,7 +413,7 @@ public class food_list extends javax.swing.JFrame {
 
         TCart.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         TCart.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        TCart.setText("Cart");
+        TCart.setText("| Cart");
 
         javax.swing.GroupLayout TPanelLayout = new javax.swing.GroupLayout(TPanel);
         TPanel.setLayout(TPanelLayout);

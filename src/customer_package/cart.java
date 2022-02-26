@@ -175,11 +175,14 @@ public class cart extends javax.swing.JFrame {
             try {
                 ds=db.stmt.executeQuery(query);
                 if(ds.next())
+                {
                     deliveryId=ds.getString(1);
+                    db.stmt.executeQuery("UPDATE DELIVERYBOY SET STATUS='Busy' where username='"+deliveryId+"'");
+                    System.out.println("Hello");
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(cart.class.getName()).log(Level.SEVERE, null, ex);
             }
-            System.out.println("Delivery id :"+deliveryId);
             try {
                 cs=db.stmt.executeQuery("Select * from Customer where USERNAME='"+custId+"'");
             } catch (SQLException ex) {
@@ -188,7 +191,7 @@ public class cart extends javax.swing.JFrame {
 
             try {
                 db.stmt.executeQuery("INSERT INTO ORDERS VALUES('"+orderId+"','"+custId+"','"+deliveryId+"','"+restId+"',SYSDATE,"+OTotal+",'Ready')");
-
+                
 
                 for(order_item o:items)
                 {
@@ -288,7 +291,7 @@ public class cart extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(153, 153, 153));
         jLabel5.setText("Total");
-        jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 37, 10));
+        jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 20, 40, 10));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));

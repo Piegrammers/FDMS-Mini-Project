@@ -51,8 +51,7 @@ public class orders extends javax.swing.JFrame {
                 orderId=Integer.parseInt(rs.getString(1));
                 restId=rs.getString(4);
                 st=rs.getString(6)+" ";
-                System.out.println(st);
-                System.out.println(orderId);
+              
                 JorderId.setText("#"+orderId);
                 status=rs.getString(7);
                 deliveryId=rs.getString(3);
@@ -115,7 +114,6 @@ public class orders extends javax.swing.JFrame {
                 
             }
         
-        System.out.println(orders_list);
             
         } catch (SQLException ex) {
             Logger.getLogger(orders.class.getName()).log(Level.SEVERE, null, ex);
