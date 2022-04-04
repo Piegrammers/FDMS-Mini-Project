@@ -36,14 +36,13 @@ public class dlvy_signup extends javax.swing.JFrame {
         btnback = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(750, 750));
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("DELIVERY BOY REGISTRATION ");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel2.setText("Usename");
+        jLabel2.setText("Username");
 
         txtuser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 

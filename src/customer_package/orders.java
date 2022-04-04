@@ -33,6 +33,7 @@ public class orders extends javax.swing.JFrame {
         
         initComponents();
         set_latest();
+        jPanel1.setVisible(true);
         
     }
     
@@ -85,6 +86,7 @@ public class orders extends javax.swing.JFrame {
                 stage3.setEnabled(true);
                 stage2.setForeground(Color.black);
                 stage3.setForeground(Color.black);
+                jPanel1.setVisible(false);
             }
 
             }
@@ -227,7 +229,7 @@ public class orders extends javax.swing.JFrame {
         recentPanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 130, -1, -1));
 
         DName.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        DName.setText("is on the way with your food");
+        DName.setText("is on the way with your food..");
 
         Dphone.setText("8989787889");
 
@@ -238,9 +240,11 @@ public class orders extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(DName, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Dphone, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(46, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(Dphone, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 158, Short.MAX_VALUE))
+                    .addComponent(DName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,7 +256,7 @@ public class orders extends javax.swing.JFrame {
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        recentPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, 250, 70));
+        recentPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, 320, 70));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Your orders:");
