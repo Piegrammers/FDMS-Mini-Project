@@ -18,7 +18,7 @@ public class user_type extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(750, 750));
+        setPreferredSize(new java.awt.Dimension(750, 680));
         setResizable(false);
 
         btcustomer.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
@@ -66,7 +66,7 @@ public class user_type extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btcustomer)
                     .addComponent(btdlvy))
-                .addContainerGap(264, Short.MAX_VALUE))
+                .addContainerGap(194, Short.MAX_VALUE))
         );
 
         pack();
