@@ -194,6 +194,10 @@ public class cust_signup extends javax.swing.JFrame {
         {
             label.setText("All fields are mandatory!!");
         }
+        else if(pass.length()<8)
+            label.setText("Password should have atleast 8 characters!!");
+        else if(!(phone.matches("[0-9]+")&&phone.length()==10))
+            label.setText("Invalid phone number");
         else
         {
             try
